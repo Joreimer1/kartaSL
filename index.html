@@ -648,6 +648,11 @@ async function findNearestStop(userLat,userLon){
 
     refreshAllStars();
 
+    // --- NY RAD: Centrera och zooma in kartan på den hittade hållplatsen ---
+    if (map && nearest.lat && nearest.lon) {
+      map.setView([parseFloat(nearest.lat), parseFloat(nearest.lon)], 16);
+    }
+
     if(matchedSites.length>0) getDeparturesFromSitesWithFiltering(matchedSites, { stopPointId: currentStopPointId }, true);
     else getDeparturesFromSitesWithFiltering([currentStop], { stopPointId: currentStopPointId }, true);
   }catch(e){ showLoading(false); showError('Kunde inte hitta hållplats'); console.error(e); }
